@@ -69,8 +69,8 @@ public class PasswordStore{
     }
 }
 public struct Credentials{
-    var username:String
-    var password:String
+    public var username:String
+    public var password:String
 }
 public enum KeychainError: Error {
     case noPassword
