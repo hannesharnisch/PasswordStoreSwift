@@ -1,7 +1,7 @@
 import Foundation
 
-class PasswordStore{
-    static func store(credentials:Credentials,for server:String) throws{
+public class PasswordStore{
+    public static func store(credentials:Credentials,for server:String) throws{
         let query: [String : Any] = [
             kSecClass as String: kSecClassInternetPassword,
             kSecAttrAccount as String: credentials.username,
@@ -17,7 +17,7 @@ class PasswordStore{
             }
         }
     }
-    static func delete(for server:String) throws {
+    public static func delete(for server:String) throws {
         let query: [String: Any] = [
             kSecClass as String: kSecClassInternetPassword,
             kSecAttrServer as String: server
@@ -27,7 +27,7 @@ class PasswordStore{
             throw KeychainError.unhandledError(status: status)
         }
     }
-    static func hasLogIn(for server:String) -> Bool{
+    public static func hasLogIn(for server:String) -> Bool{
         do{
             _ = try getItem(for: server)
             return true
@@ -35,7 +35,7 @@ class PasswordStore{
             return false
         }
     }
-    static func getLogIn(for server:String) throws -> Credentials{
+    public static func getLogIn(for server:String) throws -> Credentials{
         let item = try getItem(for: server)
         guard let existingItem = item as? [String : Any],
             let passwordData = existingItem[kSecValueData as String] as? Data,
@@ -68,11 +68,11 @@ class PasswordStore{
         return result
     }
 }
-struct Credentials{
+public struct Credentials{
     var username:String
     var password:String
 }
-enum KeychainError: Error {
+public enum KeychainError: Error {
     case noPassword
     case unexpectedPasswordData
     case unhandledError(status: OSStatus)
