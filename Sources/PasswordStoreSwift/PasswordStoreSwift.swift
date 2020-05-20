@@ -6,7 +6,7 @@ public class PasswordStore{
             kSecClass as String: kSecClassInternetPassword,
             kSecAttrAccount as String: credentials.username,
             kSecAttrServer as String: server,
-            kSecValueData as String: credentials.password
+            kSecValueData as String: credentials.password.data(using: String.Encoding.utf8)!
         ]
         let status = SecItemAdd(query as CFDictionary, nil)
         guard status == errSecSuccess else{
